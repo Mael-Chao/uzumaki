@@ -17,6 +17,7 @@ import { Separator } from '@/components/ui/separator'
 import Link from 'next/link'
 
 type Action = (formData: FormData) => Promise<{ error: string } | void>
+type VoidAction = (formData: FormData) => Promise<void>
 
 type Entry = {
   id: string
@@ -34,8 +35,8 @@ export function EntryForm({
 }: {
   action: Action
   entry?: Entry
-  deleteAction?: Action
-}) {
+  deleteAction?: VoidAction
+}){
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState<'draft' | 'publish' | null>(null)
 
