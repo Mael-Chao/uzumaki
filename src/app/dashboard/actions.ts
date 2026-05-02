@@ -97,11 +97,13 @@ export async function updateEntry(formData: FormData) {
   const id = formData.get('id') as string
   const published = formData.get('published') === 'true'
 
-  const { data: existing } = await supabase
-    .from('entries')
-    .select('published, published_at, team_id')
-    .eq('id', id)
-    .single()
+const { data: existing } = await supabase
+  .from('entries')
+  .select('published, published_at, team_id')
+  .eq('id', id)
+  .single()
+
+if (!existing) return { error: 'Entry not found' }
 
   const { data: entry, error } = await supabase
     .from('entries')
